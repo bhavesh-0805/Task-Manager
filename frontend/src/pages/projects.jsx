@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar";
+import Navbar from "../components/navbar";
 import CreateProjectModal from "../components/createProjectModal";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
