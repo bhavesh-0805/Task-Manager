@@ -19,12 +19,14 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
+  // 🔐 Protect route
   useEffect(() => {
     if (!token) {
       navigate("/", { state: { message: "Please login first" } });
     }
   }, [token, navigate]);
 
+  // 🔥 Fetch data
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -69,6 +71,12 @@ const Dashboard = () => {
   const displayTasks =
     user?.role === "Admin" ? allTasks : tasks;
 
+  // ✅ COLUMN TEMPLATE
+  const columnTemplate =
+    user?.role === "Admin"
+      ? "2fr 1fr 1fr 1fr"
+      : "2fr 1fr 1fr";
+
   return (
     <>
       <Navbar />
@@ -112,7 +120,12 @@ const Dashboard = () => {
           </div>
 
           {/* COLUMN HEADERS */}
-          <div style={tableHeader}>
+          <div
+            style={{
+              ...tableHeader,
+              gridTemplateColumns: columnTemplate,
+            }}
+          >
             <span>Title</span>
             {user?.role === "Admin" && <span>Assigned</span>}
             <span>Due Date</span>
@@ -129,23 +142,33 @@ const Dashboard = () => {
             const displayStatus = isOverdue ? "Overdue" : t.status;
 
             return (
-              <div key={t._id} style={taskItem}>
+              <div
+                key={t._id}
+                style={{
+                  ...taskItem,
+                  gridTemplateColumns: columnTemplate,
+                }}
+              >
                 
-                <span>
-                  <strong>{t.title}</strong>
+                {/* TITLE */}
+                <div style={{ overflow: "hidden" }}>
+                  <strong style={titleStyle}>{t.title}</strong>
                   <p style={subText}>{t.project?.name}</p>
-                </span>
+                </div>
 
+                {/* ASSIGNED */}
                 {user?.role === "Admin" && (
                   <span>{t.assignedTo?.name || "Unassigned"}</span>
                 )}
 
+                {/* DATE */}
                 <span>
                   {t.dueDate
                     ? new Date(t.dueDate).toLocaleDateString()
                     : "-"}
                 </span>
 
+                {/* STATUS */}
                 <span style={statusBadge(displayStatus)}>
                   {displayStatus}
                 </span>
@@ -158,10 +181,14 @@ const Dashboard = () => {
   );
 };
 
+//////////////////////////////////////////////////////////
+// 🎨 STYLES
+//////////////////////////////////////////////////////////
+
 const headerRow = {
   display: "flex",
   justifyContent: "space-between",
-  alignItems: "center", 
+  alignItems: "center",
 };
 
 const primaryBtn = {
@@ -172,7 +199,6 @@ const primaryBtn = {
   borderRadius: "4px",
   fontSize: "12px",
   cursor: "pointer",
-  height: "auto", 
 };
 
 const statsGrid = {
@@ -200,22 +226,30 @@ const taskHeader = {
 };
 
 const tableHeader = {
-  display: "flex",
-  justifyContent: "space-between",
+  display: "grid",
   padding: "10px 20px",
   background: "#f1f5f9",
   fontWeight: "bold",
 };
 
 const taskItem = {
-  display: "flex",
-  justifyContent: "space-between",
+  display: "grid",
   padding: "15px 20px",
   borderTop: "1px solid #eee",
+  alignItems: "center",
+};
+
+const titleStyle = {
+  display: "block",
+  whiteSpace: "normal",
+  wordBreak: "break-word",
 };
 
 const statusBadge = (status) => ({
   padding: "4px 8px",
+  borderRadius: "4px",
+  fontSize: "12px",
+  width: "fit-content",
   background:
     status === "Completed"
       ? "#dcfce7"
