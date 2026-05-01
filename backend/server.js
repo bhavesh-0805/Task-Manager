@@ -14,12 +14,11 @@ connectDB();
 
 const app = express();
 
-import cors from "cors";
 
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://task-manager-wfw8.onrender.com/"
+    "https://task-manager-wfw8.onrender.com"
   ],
   credentials: true
 }));
