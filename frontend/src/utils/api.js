@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api", // ✅ MUST MATCH BACKEND
+  baseURL: "https://task-managerbackedn.onrender.com", 
 });
 
 // ✅ AUTO ADD TOKEN TO EVERY REQUEST
