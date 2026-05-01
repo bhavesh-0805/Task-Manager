@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import CreateProjectModal from "../components/CreateProjectModal";
+import CreateProjectModal from "../components/createProjectModal";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUsers } from "react-icons/fa";

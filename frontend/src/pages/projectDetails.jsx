@@ -1,6 +1,6 @@
-import Navbar from "../components/Navbar";
-import CreateTaskModal from "../components/CreateTaskModal";
-import AddMemberModal from "../components/AddMemberModal";
+import Navbar from "../components/navbar";
+import CreateTaskModal from "../components/createTaskModal";
+import AddMemberModal from "../components/addMemberModal";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../utils/api";
