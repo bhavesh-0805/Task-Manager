@@ -136,7 +136,7 @@ const CreateProjectModal = ({
 
         onClose();
 
-        window.location.reload();
+        window.location.href = "/projects";
       } catch (err) {
         console.log(
           "ERROR:",
